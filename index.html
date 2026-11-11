@@ -425,9 +425,10 @@ a { color: inherit; }
 
 /* ---------- PULSERA ---------- */
 .bracelet-band { padding-block: clamp(56px, 8vw, 96px); overflow: hidden; text-align: center; }
-.bracelet { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; margin: 26px auto 0; max-width: 900px; position: relative; }
-.bracelet::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: rgba(251,238,243,.25); z-index: -1; }
-.bead { width: clamp(38px, 8vw, 54px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center;
+.bracelet { display: grid; justify-items: center; gap: clamp(14px, 3vw, 24px); margin: 26px auto 0; max-width: 900px; }
+.strand { position: relative; isolation: isolate; display: flex; flex-wrap: nowrap; justify-content: center; align-items: center; gap: clamp(4px, 1vw, 6px); padding-inline: 12px; }
+.strand::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; border-radius: 2px; background: linear-gradient(90deg, transparent, rgba(251,238,243,.35) 8%, rgba(251,238,243,.35) 92%, transparent); z-index: -1; }
+.bead { width: clamp(30px, 8.6vw, 54px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center;
   font: 600 clamp(1rem, 2.6vw, 1.35rem)/1 var(--f-body); color: var(--curtain);
   background: radial-gradient(circle at 35% 30%, #fff, var(--pearl) 45%, #d8c3cc);
   box-shadow: 0 4px 10px rgba(0,0,0,.4), inset -3px -4px 8px rgba(0,0,0,.12);
@@ -637,7 +638,7 @@ footer { padding-block: 32px calc(32px + env(safe-area-inset-bottom, 0px)); text
       <p class="sub">Noche del cumple · Fila 22</p>
       <ol>
         <li><span class="n">01</span><span class="t">The Fate of Ophelia</span><span class="w">Que este año el destino juegue a tu favor, siempre.</span></li>
-        <li><span class="n">02</span><span class="t">Elizabeth Taylor</span><span class="w">Brillo de estrella de cine, aunque sea martes.</span></li>
+        <li><span class="n">02</span><span class="t">Elizabeth Taylor</span><span class="w">Brillo de estrella de cine, y más este viernes.</span></li>
         <li><span class="n">03</span><span class="t">Opalite</span><span class="w">Que hasta los días grises te salgan de colores.</span></li>
         <li><span class="n">04</span><span class="t">Father Figure</span><span class="w">Gente que te cuide como tú cuidas a los tuyos.</span></li>
         <li><span class="n">05</span><span class="t">Eldest Daughter</span><span class="w">Permiso para descansar. Ya hiciste suficiente.</span></li>
@@ -821,12 +822,28 @@ footer { padding-block: 32px calc(32px + env(safe-area-inset-bottom, 0px)); text
   /* ---------- pulsera ---------- */
   const bracelet = document.getElementById('bracelet');
   if (bracelet) {
-    const seq = ['sp g', 'M', 'A', 'J', 'O', 'sp p', '★', '2', '2', '★', 'sp e', 'E', 'R', 'A', 'sp g', 'S', 'H', 'O', 'W', 'G', 'I', 'R', 'L', 'sp p'];
-    bracelet.innerHTML = seq.map(s => {
+    // cada hilo es una fila: SHOWGIRL siempre va completo en su propio hilo, abajo
+    const wide = [
+      ['sp g', 'M', 'A', 'J', 'O', 'sp p', '★', '2', '2', '★', 'sp e', 'E', 'R', 'A', 'sp g'],
+      ['sp p', 'S', 'H', 'O', 'W', 'G', 'I', 'R', 'L', 'sp p']
+    ];
+    const narrow = [ // en pantallas angostas el primer hilo se parte en dos
+      ['sp g', 'M', 'A', 'J', 'O', 'sp p', '★', '2', '2', '★'],
+      ['sp e', 'E', 'R', 'A', 'sp g'],
+      ['sp p', 'S', 'H', 'O', 'W', 'G', 'I', 'R', 'L', 'sp p']
+    ];
+    const bead = s => {
       if (s.startsWith('sp')) return `<span class="bead ${s}" aria-hidden="true"></span>`;
       if (s === '★') return `<span class="bead star" aria-hidden="true">✦</span>`;
       return `<span class="bead" aria-hidden="true">${s}</span>`;
-    }).join('');
+    };
+    const mq = window.matchMedia('(max-width: 900px)');
+    const draw = () => {
+      bracelet.innerHTML = (mq.matches ? narrow : wide)
+        .map(row => `<div class="strand">${row.map(bead).join('')}</div>`).join('');
+    };
+    draw();
+    mq.addEventListener('change', draw);
   }
 
   /* ---------- canvas: brillos, nieve, lentejuelas y confeti ---------- */
