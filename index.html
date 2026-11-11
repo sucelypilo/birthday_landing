@@ -1,0 +1,1099 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Era Showgirl de Majo</title>
+<meta name="description" content="Feliz cumpleaños número 22, Majo. La gira de los 22, edición navideña.">
+<meta name="theme-color" content="#12040b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 2 L24 15 L38 15 L27 23 L31 37 L20 29 L9 37 L13 23 L2 15 L16 15 Z' fill='%23e4b65e'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Limelight&family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,800;1,6..96,500;1,6..96,700&family=Jost:wght@400;500;600&family=Rye&display=swap">
+<style>
+/* Layout: un teatro. Telón magenta → entrada → setlist pegado en el escenario → Grand Line → Navidad → pulsera → encore. Un solo look oscuro a propósito. */
+:root {
+  --ink: #12040b;        /* negro vino del escenario */
+  --wine: #2c0513;
+  --curtain: #a3104a;    /* cortina */
+  --magenta: #e5307f;
+  --gold: #e4b65e;
+  --gold-hi: #fff2c8;
+  --pearl: #fbeef3;
+  --muted: #d9b3c4;
+  --emerald: #1f8a55;    /* Zoro + árbol */
+  --parchment: #ecd8a9;
+  --sepia: #4b2e15;
+
+  --f-display: "Limelight", "Bodoni Moda", Georgia, serif;
+  --f-serif: "Bodoni Moda", Georgia, "Times New Roman", serif;
+  --f-body: "Jost", "Segoe UI", system-ui, sans-serif;
+  --f-pirate: "Rye", "Bodoni Moda", Georgia, serif;
+
+  /* texturas de glitter de Majo (17.svg y 18.svg), en mosaico espejado para que no se noten las uniones */
+  --glit-gold: url(img/glitter-dorado.webp);
+  --glit-pink: url(img/glitter-rosa.webp);
+  --gs: 420px;
+  --glit-silver: linear-gradient(135deg, #8d8d99, #ffffff 40%, #b9b9c6 60%, #ffffff 80%);
+
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+img, svg { max-width: 100%; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--pearl);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+#sparkles { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+.wrap {
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+section { position: relative; }
+h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 400; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 4px; border-radius: 4px; }
+
+/* ---------- glitter ---------- */
+.glitter, .glitter-pink, .glitter-silver {
+  background-image:
+    linear-gradient(105deg, transparent 38%, rgba(255,255,255,.75) 48%, transparent 58%),
+    var(--glit-gold);
+  background-size: 320% 100%, var(--gs) var(--gs);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: sheen 5.5s ease-in-out infinite, drift 18s linear infinite;
+  filter: drop-shadow(0 0 14px rgba(228,182,94,.35));
+}
+.glitter-pink {
+  background-image:
+    linear-gradient(105deg, transparent 38%, rgba(255,255,255,.7) 48%, transparent 58%),
+    var(--glit-pink);
+  filter: drop-shadow(0 0 16px rgba(229,48,127,.45));
+}
+.glitter-silver {
+  background-image:
+    linear-gradient(105deg, transparent 38%, rgba(255,255,255,.9) 48%, transparent 58%),
+    var(--glit-silver);
+  filter: drop-shadow(0 0 10px rgba(255,255,255,.3));
+}
+@keyframes sheen { 0%, 100% { background-position: 120% 0, 0 0; } 50% { background-position: -20% 0, 0 0; } }
+@keyframes drift { to { background-position-y: 0, var(--gs); } }
+
+/* glitter as a surface (not text) */
+.glitter-fill { background-image: var(--glit-gold); background-size: var(--gs); }
+.glitter-fill-pink { background-image: var(--glit-pink); background-size: var(--gs); }
+
+/* ---------- HERO / telón ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: clamp(56px, 9vw, 110px) clamp(72px, 10vw, 130px);
+  background:
+    radial-gradient(ellipse 45% 60% at 50% 38%, rgba(255,120,180,.35), transparent 70%),
+    radial-gradient(ellipse 80% 40% at 50% 105%, rgba(229,48,127,.45), transparent 70%),
+    repeating-linear-gradient(90deg,
+      #3d0418 0, #7a0b36 1.6%, #c4155c 3.4%, #e73a86 4.3%, #b3124f 5.4%, #6a0a2f 7.2%, #3d0418 8.4%);
+}
+.hero::before { /* viñeta para que el texto respire */
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 55% 70% at 50% 45%, rgba(18,4,11,.15), rgba(18,4,11,.78) 85%),
+    linear-gradient(180deg, rgba(18,4,11,.5), transparent 22%, transparent 70%, var(--ink));
+}
+.valance { /* bambalina dorada arriba */
+  position: absolute; inset: 0 0 auto; height: 34px; z-index: 1;
+  background:
+    radial-gradient(circle at 50% -6px, transparent 22px, rgba(0,0,0,0) 22px) ,
+    linear-gradient(180deg, #5e0826, #8d0d3d);
+  -webkit-mask: radial-gradient(circle 26px at 50% 0, #000 98%, transparent 100%) 0 0 / 52px 34px repeat-x;
+          mask: radial-gradient(circle 26px at 50% 0, #000 98%, transparent 100%) 0 0 / 52px 34px repeat-x;
+}
+.fringe { position: absolute; inset: 0 0 auto; height: 6px; z-index: 2; }
+.shard { /* planos angulares como en el póster */
+  position: absolute; z-index: -1; opacity: .55;
+  background: linear-gradient(135deg, #ff4f9a, #a3104a);
+  box-shadow: 0 0 40px rgba(229,48,127,.4);
+}
+.shard.s1 { width: 160px; height: 110px; top: 12%; left: -40px; transform: rotate(-18deg) skewX(-12deg); }
+.shard.s2 { width: 120px; height: 160px; bottom: 14%; right: -30px; transform: rotate(24deg) skewY(10deg); }
+.shard.s3 { width: 70px; height: 70px; top: 18%; right: 14%; transform: rotate(40deg); opacity: .35; }
+
+.hero-layout { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); align-items: end; gap: clamp(8px, 3vw, 32px); }
+.hero-inner { position: relative; z-index: 1; display: grid; gap: clamp(18px, 3vw, 28px); justify-items: center; text-align: center; align-self: center; }
+.hero-photo { position: relative; z-index: 1; justify-self: center; width: min(100%, 360px); margin-bottom: calc(-1 * clamp(72px, 10vw, 130px));
+  -webkit-mask: linear-gradient(180deg, #000 70%, transparent); mask: linear-gradient(180deg, #000 70%, transparent);
+  filter: drop-shadow(0 0 40px rgba(229,48,127,.35)); animation: rise 1.2s .4s cubic-bezier(.2,.9,.3,1) both; }
+.hero-photo img { width: 100%; }
+.eyebrow { width: clamp(170px, 28vw, 290px); margin: 0; transform: rotate(-4deg); }
+.eyebrow img { width: 100%; filter: drop-shadow(0 8px 14px rgba(0,0,0,.45)); }
+.marquee-name {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(4px, 1vw, 12px);
+  --h: clamp(130px, 30vw, 300px);
+}
+.marquee-name span {
+  display: inline-block; cursor: pointer;
+  animation: rise 1s cubic-bezier(.2,.9,.3,1.2) both;
+  transition: scale .25s cubic-bezier(.2,.9,.3,1.4), rotate .25s;
+}
+.marquee-name img { height: var(--h); width: auto; filter: drop-shadow(0 10px 18px rgba(0,0,0,.45)); }
+.marquee-name span::after { animation-delay: inherit; }
+.marquee-name span:hover, .encore-word span:hover { scale: 1.1; rotate: -4deg; }
+.marquee-name span:nth-child(1) { transform: translateY(calc(var(--h) * .05)); animation-delay: .05s; }
+.marquee-name span:nth-child(2) { transform: translateY(calc(var(--h) * -.06)); animation-delay: .15s; }
+.marquee-name span:nth-child(3) { transform: translateY(calc(var(--h) * .09)); animation-delay: .25s; }
+.marquee-name span:nth-child(4) { transform: translateY(calc(var(--h) * -.03)); animation-delay: .35s; }
+@keyframes rise { from { opacity: .2; translate: 0 .3em; } to { opacity: 1; translate: 0 0; } }
+
+.age-row { display: flex; align-items: center; gap: clamp(14px, 3vw, 28px); flex-wrap: wrap; justify-content: center; }
+.age { width: clamp(120px, 22vw, 210px); }
+.age img { width: 100%; filter: drop-shadow(0 0 18px rgba(229,48,127,.45)); }
+.age-copy { text-align: left; max-width: 18ch; }
+.age-copy b { display: block; font-family: var(--f-serif); font-style: italic; font-weight: 500; font-size: clamp(1.3rem, 3.2vw, 1.8rem); line-height: 1.15; color: var(--gold-hi); }
+.age-copy small { font-size: .82rem; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+
+.cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  font: 600 .85rem/1 var(--f-body); letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
+  padding: 16px 26px; border-radius: 999px; border: 0; cursor: pointer;
+  background-image: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.7) 50%, transparent 65%), var(--glit-gold);
+  background-size: 300% 100%, var(--gs);
+  animation: sheen 4s ease-in-out infinite;
+  box-shadow: 0 0 0 1px rgba(255,242,200,.6) inset, 0 10px 30px rgba(228,182,94,.35);
+  transition: transform .2s;
+}
+.cta:hover { transform: translateY(-2px) scale(1.02); }
+.cta.ghost { background: transparent; color: var(--gold-hi); box-shadow: 0 0 0 1px var(--gold) inset; animation: none; }
+
+.hat-float { position: absolute; width: clamp(80px, 13vw, 150px); height: auto; top: clamp(52px, 8vw, 80px); left: clamp(8px, 6vw, 70px); transform: rotate(-16deg); filter: drop-shadow(0 8px 16px rgba(0,0,0,.5)); animation: bob 5s ease-in-out infinite; z-index: 2; }
+@keyframes bob { 50% { translate: 0 -10px; } }
+
+/* ---------- arte de Majo (birthday_landing/img) ---------- */
+:where(img.art, .art img, .hang img, .deco) { display: block; height: auto; user-select: none; -webkit-user-drag: none; }
+/* brillo que recorre el arte, recortado a la silueta de cada imagen */
+.shine { position: relative; display: inline-block; }
+.shine::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,250,235,.85) 50%, transparent 60%);
+  background-size: 320% 100%;
+  -webkit-mask: var(--m) center / 100% 100% no-repeat;
+          mask: var(--m) center / 100% 100% no-repeat;
+  mix-blend-mode: soft-light;
+  animation: sheen 5.5s ease-in-out infinite;
+}
+/* bolas disco colgando de un hilo */
+.hang { position: absolute; z-index: 2; transform-origin: 50% 0; animation: sway 6s ease-in-out infinite alternate; pointer-events: none; }
+.hang::before { content: ""; display: block; width: 2px; height: var(--cord, 60px); margin: 0 auto -4px; background: linear-gradient(180deg, transparent, var(--gold) 30%, var(--gold-hi)); }
+.hang img { width: 100%; filter: drop-shadow(0 12px 24px rgba(0,0,0,.55)); animation: twinkle 3.2s ease-in-out infinite; }
+@keyframes sway { from { rotate: -6deg; } to { rotate: 6deg; } }
+@keyframes twinkle { 0%, 100% { filter: drop-shadow(0 12px 24px rgba(0,0,0,.55)) brightness(1); } 50% { filter: drop-shadow(0 0 22px rgba(255,200,230,.55)) brightness(1.18); } }
+.disco { width: clamp(100px, 17vw, 230px); right: clamp(6px, 5vw, 60px); top: 0; --cord: clamp(30px, 5vw, 70px); }
+/* estrellas de glitter sueltas */
+.deco { position: absolute; z-index: 0; pointer-events: none; width: var(--s, 60px); filter: drop-shadow(0 6px 14px rgba(0,0,0,.45)); animation: float 7s ease-in-out infinite; }
+.deco:nth-of-type(2n) { animation-duration: 9s; animation-direction: reverse; }
+@keyframes float { 0%, 100% { translate: 0 0; rotate: var(--r, -10deg); scale: 1; } 50% { translate: 0 -12px; rotate: calc(var(--r, -10deg) + 14deg); scale: 1.06; } }
+
+/* ---------- section heads ---------- */
+.band { padding-block: clamp(64px, 9vw, 120px); }
+.kicker { font: 600 .78rem/1 var(--f-body); letter-spacing: .28em; text-transform: uppercase; color: var(--gold); }
+.h2 { font-family: var(--f-display); font-size: clamp(2.3rem, 6.5vw, 4.4rem); line-height: 1; }
+.lede { font-family: var(--f-serif); font-style: italic; font-size: clamp(1.2rem, 2.6vw, 1.55rem); line-height: 1.4; color: var(--muted); max-width: 40ch; }
+.head { display: grid; gap: 14px; margin-bottom: clamp(32px, 5vw, 56px); }
+.walk-star { width: min(72%, 300px); margin-top: clamp(12px, 3vw, 32px); justify-self: center; rotate: -8deg; transition: rotate .4s, scale .4s; filter: drop-shadow(0 18px 30px rgba(0,0,0,.55)); }
+.walk-star:hover { rotate: 4deg; scale: 1.05; }
+
+/* ---------- TICKET ---------- */
+.ticket-band { background: linear-gradient(180deg, var(--ink), var(--wine) 60%, var(--ink)); }
+.ticket-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.ticket {
+  display: grid; grid-template-columns: minmax(0, 1fr) 92px;
+  border-radius: 18px; overflow: hidden;
+  background: var(--pearl); color: var(--ink);
+  box-shadow: 0 30px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(228,182,94,.5);
+  transform: rotate(-2deg);
+  transition: transform .4s;
+}
+.ticket:hover { transform: rotate(0deg) scale(1.01); }
+.ticket-main { padding: 22px 22px 20px; display: grid; gap: 14px; min-width: 0;
+  background: radial-gradient(circle at 100% 0, rgba(229,48,127,.12), transparent 50%), var(--pearl); }
+.ticket-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.ticket-top .kicker { color: var(--curtain); }
+.ticket-title { font-family: var(--f-display); font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1; color: var(--curtain); }
+.fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 10px; }
+.field small { display: block; font-size: .64rem; letter-spacing: .2em; text-transform: uppercase; color: #8a5a6c; }
+.field b { font-family: var(--f-serif); font-size: 1.15rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.barcode { height: 38px; background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 5px, transparent 5px 8px, var(--ink) 8px 11px, transparent 11px 12px); opacity: .85; }
+.stub {
+  position: relative; display: grid; place-items: center;
+  border-left: 2px dashed rgba(18,4,11,.3);
+  background-image: var(--glit-pink); background-size: var(--gs);
+}
+.stub span { writing-mode: vertical-rl; transform: rotate(180deg); font-family: var(--f-display); font-size: 1.35rem; letter-spacing: .1em; color: var(--pearl); text-shadow: 0 1px 6px rgba(0,0,0,.4); }
+.stub::before, .stub::after { content: ""; position: absolute; left: -12px; width: 22px; height: 22px; border-radius: 50%; background: var(--wine); }
+.stub::before { top: -11px; } .stub::after { bottom: -11px; }
+.ticket-copy { display: grid; gap: 18px; }
+.ticket-copy p { color: var(--muted); max-width: 46ch; }
+.quote { font-family: var(--f-serif); font-style: italic; font-weight: 500; font-size: clamp(1.6rem, 4vw, 2.4rem); line-height: 1.15; color: var(--pearl); }
+.quote em { font-style: normal; color: var(--gold-hi); }
+.soundtrack { display: grid; gap: 10px; margin-top: 6px; padding: 14px; border-radius: 22px; max-width: 520px;
+  background: linear-gradient(160deg, rgba(229,48,127,.14), rgba(228,182,94,.08));
+  border: 1px solid rgba(228,182,94,.35); box-shadow: 0 0 30px rgba(229,48,127,.18); }
+.soundtrack iframe { display: block; width: 100%; height: 152px; border: 0; border-radius: 12px; }
+
+/* ---------- SETLIST ---------- */
+.stage {
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 0, rgba(229,48,127,.22), transparent 70%),
+    repeating-linear-gradient(90deg, #1b0710 0 120px, #210913 120px 122px),
+    var(--ink);
+}
+.setlist-wrap { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.setlist {
+  position: relative;
+  background: #fffaf2; color: var(--ink);
+  padding: 40px clamp(18px, 4vw, 40px) 30px;
+  transform: rotate(1.2deg);
+  box-shadow: 0 25px 50px rgba(0,0,0,.6);
+}
+.setlist::before, .setlist::after { /* cinta gaffer */
+  content: ""; position: absolute; top: -14px; width: 110px; height: 30px;
+  background: rgba(40,40,44,.88); box-shadow: 0 2px 4px rgba(0,0,0,.3);
+}
+.setlist::before { left: 18px; transform: rotate(-6deg); }
+.setlist::after { right: 18px; transform: rotate(5deg); }
+.setlist h3 { font-family: var(--f-display); font-size: 1.55rem; color: var(--curtain); line-height: 1.1; margin-bottom: 4px; }
+.setlist .sub { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: #8a5a6c; margin-bottom: 18px; }
+.setlist ol { list-style: none; margin: 0; padding: 0; display: grid; }
+.setlist li {
+  display: grid; grid-template-columns: 2.2em minmax(0, 1fr); gap: 4px 10px;
+  padding: 11px 0; border-top: 1px solid #eadfd8;
+}
+.setlist li .n { font-family: var(--f-serif); font-weight: 800; font-size: 1.05rem; color: var(--magenta); font-variant-numeric: tabular-nums; grid-row: span 2; }
+.setlist li .t { font-family: var(--f-serif); font-weight: 800; font-size: 1.08rem; line-height: 1.2; }
+.setlist li .w { font-size: .95rem; color: #5b3a48; line-height: 1.45; }
+.setlist li.last .t { color: var(--curtain); }
+
+/* ---------- GRAND LINE ---------- */
+.grandline {
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 30%, rgba(31,138,85,.14), transparent 70%),
+    linear-gradient(180deg, var(--ink), #160610 50%, var(--ink));
+}
+.waves { position: absolute; inset: auto 0 0; height: 90px; opacity: .25; pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 100%, transparent 28px, var(--gold) 29px, var(--gold) 30px, transparent 31px) 0 100% / 60px 40px repeat-x,
+    radial-gradient(circle at 50% 100%, transparent 28px, var(--magenta) 29px, var(--magenta) 30px, transparent 31px) 30px 70% / 60px 40px repeat-x; }
+.gl-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 72px); align-items: center; }
+.poster {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 380px);
+  padding: 22px 22px 18px;
+  color: var(--sepia);
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(110,70,30,.35) 100%),
+    radial-gradient(circle at 20% 80%, rgba(120,80,30,.12), transparent 30%),
+    var(--parchment);
+  box-shadow: 0 30px 60px rgba(0,0,0,.6);
+  transform: rotate(-3deg);
+  text-align: center;
+  display: grid; gap: 8px;
+}
+.poster .pin { position: absolute; top: -10px; left: 50%; width: 22px; height: 22px; margin-left: -11px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #ff8ab9, var(--curtain)); box-shadow: 0 3px 6px rgba(0,0,0,.4); }
+.wanted { font-family: var(--f-pirate); font-size: clamp(3rem, 10vw, 4.2rem); line-height: .9; letter-spacing: .02em; }
+.wanted { position: relative; z-index: 2; text-shadow: 0 0 6px var(--parchment), 0 0 2px var(--parchment); }
+.photo { position: relative; z-index: 1; border: 3px solid var(--sepia); background: var(--sepia); }
+.photo .pic { display: block; aspect-ratio: 671 / 572; overflow: hidden; }
+.photo .pic img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.015); filter: sepia(1) contrast(1.08) brightness(.95); }
+/* el gorrito de fiesta de 21.svg, en el mismo lugar sobre la cabeza; asoma por encima del marco, detrás de WANTED */
+.photo .party-hat { position: absolute; left: 16%; top: -42%; width: 34.5%; height: auto; filter: drop-shadow(0 4px 6px rgba(0,0,0,.35)); transform-origin: 50% 95%; animation: hatWiggle 4s ease-in-out infinite; }
+@keyframes hatWiggle { 0%, 100% { rotate: 0deg; } 50% { rotate: -4deg; } }
+.alive { font-family: var(--f-pirate); font-size: 1.05rem; letter-spacing: .06em; }
+.pname { font-family: var(--f-pirate); font-size: clamp(2.2rem, 7vw, 2.8rem); line-height: 1; }
+.bounty { display: flex; justify-content: center; align-items: baseline; gap: 6px; font-family: var(--f-serif); font-weight: 800; font-size: clamp(1.35rem, 4.5vw, 1.8rem); font-variant-numeric: tabular-nums; }
+.bounty .berry { font-family: var(--f-pirate); font-size: 1.1em; }
+.marine { font-size: .62rem; letter-spacing: .3em; text-transform: uppercase; opacity: .7; }
+.gl-copy { display: grid; gap: 22px; }
+.bulletins { display: grid; gap: 14px; }
+.bulletin {
+  display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 14px; align-items: start;
+  padding: 16px 18px; border-radius: 14px;
+  background: rgba(251,238,243,.04);
+  border: 1px solid rgba(228,182,94,.25);
+}
+.bulletin .b-icon { width: 54px; height: 54px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,.45)); transition: rotate .3s cubic-bezier(.2,.9,.3,1.4); }
+.bulletin:hover .b-icon { rotate: -10deg; }
+.bulletin .b-icon.swords { rotate: -40deg; scale: 1.3; }
+.bulletin:hover .b-icon.swords { rotate: -20deg; }
+.poster .pin { left: 64%; }
+.sunny { position: absolute; z-index: 0; right: clamp(4px, 3vw, 40px); bottom: clamp(6px, 2vw, 24px); width: clamp(100px, 15vw, 210px); height: auto; pointer-events: none; filter: drop-shadow(0 10px 18px rgba(0,0,0,.5)); animation: sail 5s ease-in-out infinite; }
+@keyframes sail { 0%, 100% { translate: 0 0; rotate: -3deg; } 50% { translate: -10px -8px; rotate: 3deg; } }
+.bulletin b { display: block; font-family: var(--f-serif); font-size: 1.1rem; color: var(--gold-hi); line-height: 1.25; margin-bottom: 2px; }
+.bulletin p { color: var(--muted); font-size: .98rem; }
+
+/* ---------- NAVIDAD ---------- */
+.xmas {
+  background:
+    radial-gradient(ellipse 50% 40% at 15% 30%, rgba(31,138,85,.18), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 85% 70%, rgba(229,48,127,.18), transparent 70%),
+    var(--ink);
+  padding-top: clamp(110px, 14vw, 190px);
+}
+.lights { position: absolute; inset: 0 0 auto; pointer-events: none; }
+.lights img { width: 100%; height: clamp(84px, 13.5vw, 200px); object-fit: cover; object-position: 50% 0; animation: glow 2.4s ease-in-out infinite; }
+@keyframes glow { 0%, 100% { filter: brightness(1) saturate(1); } 50% { filter: brightness(1.3) saturate(1.25) drop-shadow(0 0 10px rgba(255,150,200,.45)); } }
+.cake-stage { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: end; gap: clamp(12px, 3vw, 36px); width: 100%; }
+.cake-stage .tree { justify-self: end; width: clamp(130px, 18vw, 230px); filter: drop-shadow(0 0 30px rgba(255,190,90,.25)); }
+.cake-stage .bauble { position: relative; justify-self: start; align-self: start; width: clamp(90px, 12vw, 150px); --cord: clamp(40px, 6vw, 90px); }
+.cake-stage .bauble.hang { position: relative; }
+.cake-stage .cake { width: min(520px, 48vw); }
+@media (max-width: 820px) { .cake-stage .cake { width: min(100%, 520px); } }
+.xmas-head { text-align: center; justify-items: center; }
+.xmas-head .lede { margin-inline: auto; }
+.cake-area { display: grid; justify-items: center; gap: 22px; }
+.cake { position: relative; width: min(100%, 520px); display: grid; justify-items: center; }
+.candles { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 8px; width: 88%; padding-bottom: 0; position: relative; z-index: 2; }
+.candle { position: relative; width: 12px; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+.candle::after { /* cuerpo de la vela */
+  content: ""; width: 10px; height: 34px; border-radius: 3px 3px 1px 1px;
+  background: repeating-linear-gradient(160deg, var(--pearl) 0 5px, var(--magenta) 5px 9px);
+  box-shadow: inset -2px 0 0 rgba(0,0,0,.15);
+}
+.flame {
+  position: absolute; top: 0; left: 50%; width: 22px; height: 26px; margin-left: -11px;
+  border: 0; padding: 0; background: transparent; cursor: pointer;
+}
+.flame::before {
+  content: ""; position: absolute; left: 6px; top: 2px; width: 10px; height: 16px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: radial-gradient(ellipse at 50% 70%, #fff 0 20%, #ffe17a 35%, #ff9a2e 70%, transparent 72%);
+  box-shadow: 0 0 14px 4px rgba(255,190,80,.55);
+  animation: flicker .5s ease-in-out infinite alternate;
+  transform-origin: 50% 100%;
+}
+.flame.out::before { opacity: 0; box-shadow: none; animation: none; transition: opacity .25s; }
+.flame.out::after { content: ""; position: absolute; left: 9px; top: 0; width: 4px; height: 14px; border-radius: 50%; background: rgba(255,255,255,.35); filter: blur(2px); animation: smoke 1.2s ease-out forwards; }
+@keyframes flicker { from { transform: scale(1, 1) rotate(-3deg); } to { transform: scale(.9, 1.1) rotate(3deg); } }
+@keyframes smoke { to { transform: translateY(-24px) scaleX(2); opacity: 0; } }
+.tier { border-radius: 14px 14px 6px 6px; position: relative; }
+.tier.top { width: 78%; height: 70px; margin-top: -6px;
+  background:
+    radial-gradient(circle at 10% 0, var(--pearl) 10px, transparent 11px) 0 0 / 38px 22px repeat-x,
+    linear-gradient(180deg, var(--pearl) 0 12px, transparent 12px),
+    linear-gradient(180deg, #c2185b, #8e0f45);
+}
+.tier.bottom { width: 100%; height: 92px; margin-top: -2px;
+  background:
+    radial-gradient(circle at 10% 0, var(--gold-hi) 12px, transparent 13px) 0 0 / 46px 26px repeat-x,
+    linear-gradient(180deg, var(--gold-hi) 0 14px, transparent 14px),
+    var(--glit-gold);
+  background-size: 46px 26px, auto, var(--gs);
+}
+.tier.bottom::after { content: "22"; position: absolute; inset: 0; display: grid; place-items: center; padding-top: 14px; font-family: var(--f-display); font-size: 2.6rem; color: var(--curtain); text-shadow: 0 1px 0 rgba(255,255,255,.5); }
+.plate { width: 110%; max-width: calc(100vw - 32px); height: 14px; border-radius: 50%; background: linear-gradient(180deg, #d8d8e2, #8d8d99); margin-top: -4px; box-shadow: 0 10px 30px rgba(0,0,0,.6); }
+.cake-controls { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; align-items: center; }
+.count { font-family: var(--f-serif); font-style: italic; font-size: 1.25rem; color: var(--gold-hi); min-height: 1.6em; text-align: center; font-variant-numeric: tabular-nums; }
+
+.xmas-quotes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: clamp(48px, 7vw, 80px); }
+.ornament {
+  padding: 22px 20px 20px; border-radius: 18px; display: grid; gap: 8px; align-content: start;
+  background: linear-gradient(160deg, rgba(251,238,243,.07), rgba(251,238,243,.02));
+  border: 1px solid rgba(251,238,243,.12);
+}
+.ornament img { height: 72px; width: auto; transform-origin: 50% 0; filter: drop-shadow(0 8px 14px rgba(0,0,0,.45)); transition: rotate .4s cubic-bezier(.2,.9,.3,1.4); }
+.ornament:hover img { rotate: 10deg; }
+.ornament b { font-family: var(--f-serif); font-size: 1.15rem; line-height: 1.25; color: var(--pearl); }
+.ornament p { color: var(--muted); font-size: .95rem; }
+
+/* ---------- PULSERA ---------- */
+.bracelet-band { padding-block: clamp(56px, 8vw, 96px); overflow: hidden; text-align: center; }
+.bracelet { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; margin: 26px auto 0; max-width: 900px; position: relative; }
+.bracelet::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: rgba(251,238,243,.25); z-index: -1; }
+.bead { width: clamp(38px, 8vw, 54px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center;
+  font: 600 clamp(1rem, 2.6vw, 1.35rem)/1 var(--f-body); color: var(--curtain);
+  background: radial-gradient(circle at 35% 30%, #fff, var(--pearl) 45%, #d8c3cc);
+  box-shadow: 0 4px 10px rgba(0,0,0,.4), inset -3px -4px 8px rgba(0,0,0,.12);
+  transition: transform .3s;
+}
+.bead:hover { transform: translateY(-6px) rotate(-8deg); }
+.bead.sp { width: clamp(18px, 3.5vw, 24px); border-radius: 6px; aspect-ratio: .7; }
+.bead.sp.g { background-image: var(--glit-gold); background-size: var(--gs); }
+.bead.sp.p { background-image: var(--glit-pink); background-size: var(--gs); }
+.bead.sp.e { background: linear-gradient(160deg, #3fc387, var(--emerald)); }
+.bead.star { background: transparent; box-shadow: none; color: var(--gold); font-size: clamp(1.4rem, 4vw, 2rem); }
+
+/* ---------- ENCORE ---------- */
+.encore {
+  overflow: hidden; isolation: isolate; text-align: center;
+  padding-block: clamp(80px, 11vw, 150px);
+  background:
+    radial-gradient(ellipse 40% 55% at 50% 50%, rgba(255,120,180,.3), transparent 70%),
+    repeating-linear-gradient(90deg, #3d0418 0, #7a0b36 1.6%, #c4155c 3.4%, #e73a86 4.3%, #b3124f 5.4%, #6a0a2f 7.2%, #3d0418 8.4%);
+}
+.encore::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(18,4,11,.25), rgba(18,4,11,.85) 85%), linear-gradient(180deg, var(--ink), transparent 25%); }
+.encore-word { width: min(100%, 780px); cursor: pointer; transition: scale .3s cubic-bezier(.2,.9,.3,1.4); }
+.encore-word:hover { scale: 1.03; }
+.encore-word img { width: 100%; filter: drop-shadow(0 12px 22px rgba(0,0,0,.5)); }
+.encore .disco-l { width: clamp(95px, 16vw, 220px); left: clamp(6px, 5vw, 60px); top: 0; --cord: clamp(40px, 8vw, 110px); }
+.encore .inner { display: grid; gap: 22px; justify-items: center; }
+.letter { max-width: 56ch; font-family: var(--f-serif); font-size: clamp(1.15rem, 2.4vw, 1.35rem); line-height: 1.6; color: var(--pearl); }
+.letter p + p { margin-top: 14px; }
+.sign { font-family: var(--f-serif); font-style: italic; color: var(--gold-hi); font-size: 1.2rem; }
+
+footer { padding-block: 32px calc(32px + env(safe-area-inset-bottom, 0px)); text-align: center; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: #9b7585; }
+
+/* ---------- telón de entrada ---------- */
+.intro { position: fixed; inset: 0; z-index: 120; pointer-events: none; display: flex; animation: introGone 0s 2.3s forwards; }
+.intro::before, .intro::after {
+  content: ""; flex: 1;
+  background:
+    linear-gradient(180deg, rgba(18,4,11,.35), transparent 30%, transparent 80%, rgba(18,4,11,.5)),
+    repeating-linear-gradient(90deg, #3d0418 0, #7a0b36 3%, #c4155c 6.5%, #e73a86 8%, #b3124f 10%, #6a0a2f 13%, #3d0418 15%);
+  box-shadow: inset 0 0 90px rgba(0,0,0,.55);
+}
+.intro::before { border-right: 3px solid var(--gold); animation: openL 1.5s .7s cubic-bezier(.7,0,.25,1) forwards; }
+.intro::after { border-left: 3px solid var(--gold); animation: openR 1.5s .7s cubic-bezier(.7,0,.25,1) forwards; }
+.intro-title {
+  position: absolute; inset: 0; display: grid; place-content: center; text-align: center; gap: 6px;
+  font-family: var(--f-display); font-size: clamp(2.4rem, 10vw, 5rem); line-height: 1;
+  animation: introFade .45s .55s forwards;
+}
+.intro-title small { font-family: var(--f-body); font-size: .8rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold-hi); }
+@keyframes openL { to { transform: translateX(-104%); } }
+@keyframes openR { to { transform: translateX(104%); } }
+@keyframes introFade { to { opacity: 0; transform: scale(1.15); } }
+@keyframes introGone { to { visibility: hidden; } }
+
+/* ---------- reflectores ---------- */
+.beams { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.beam {
+  position: absolute; top: -14%; width: 36vw; max-width: 440px; height: 135%;
+  transform-origin: 50% 0;
+  background: linear-gradient(180deg, rgba(255,242,200,.42), rgba(255,242,200,.08) 65%, transparent);
+  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
+  mix-blend-mode: screen; filter: blur(3px);
+}
+.beam.b1 { left: 4%; animation: sweepL 7s ease-in-out infinite alternate; }
+.beam.b2 { right: 4%; animation: sweepR 8.5s ease-in-out infinite alternate; background: linear-gradient(180deg, rgba(255,140,190,.4), rgba(255,140,190,.07) 65%, transparent); }
+.beam.b3 { left: 32%; width: 34vw; opacity: .6; animation: sweepL 11s ease-in-out infinite alternate-reverse; }
+@keyframes sweepL { from { rotate: -30deg; } to { rotate: 14deg; } }
+@keyframes sweepR { from { rotate: 28deg; } to { rotate: -16deg; } }
+
+/* ---------- reflejo holográfico ---------- */
+.foil { position: relative; }
+.foil::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 3;
+  background:
+    radial-gradient(circle at var(--mx, 25%) var(--my, 15%), rgba(255,255,255,.6), transparent 38%),
+    linear-gradient(115deg, transparent 18%, rgba(255,111,174,.35) 34%, rgba(255,242,200,.45) 50%, rgba(63,195,135,.22) 63%, transparent 82%);
+  background-size: 100% 100%, 260% 260%;
+  background-position: 0 0, var(--mx, 25%) var(--my, 15%);
+  mix-blend-mode: overlay;
+  animation: foilIdle 6s ease-in-out infinite;
+}
+.foil.tilting { transition: transform .08s linear; }
+.foil.tilting::after { animation: none; }
+@keyframes foilIdle { 0%, 100% { background-position: 0 0, 0% 0%; } 50% { background-position: 0 0, 100% 100%; } }
+
+/* ---------- responsive ---------- */
+@media (max-width: 820px) {
+  .ticket-grid, .setlist-wrap, .gl-grid { grid-template-columns: minmax(0, 1fr); }
+  .xmas-quotes { grid-template-columns: minmax(0, 1fr); }
+  .ticket { transform: rotate(-1deg); }
+  .poster { order: -1; }
+  .hero-layout { grid-template-columns: minmax(0, 1fr); }
+  .hero-photo { width: min(62%, 260px); }
+  .cake-stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "tree bauble" "cake cake"; row-gap: 8px; }
+  .cake-stage .tree { grid-area: tree; width: clamp(110px, 30vw, 170px); }
+  .cake-stage .bauble { grid-area: bauble; width: clamp(80px, 22vw, 120px); }
+  .cake-stage .cake { grid-area: cake; justify-self: center; }
+  .walk-star { width: min(60%, 230px); }
+}
+@media (max-width: 460px) {
+  .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ticket { grid-template-columns: minmax(0, 1fr) 62px; }
+  .stub span { font-size: 1rem; }
+  .age-copy { text-align: center; }
+  .hat-float { top: 40px; }
+  .hero { padding-top: 104px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .intro, .beams { display: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="sparkles" aria-hidden="true"></canvas>
+
+<div class="intro" aria-hidden="true">
+  <div class="intro-title"><span class="glitter">Majo · 22</span><small>La función está por empezar</small></div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="valance" aria-hidden="true"></div>
+  <div class="fringe glitter-fill" aria-hidden="true"></div>
+  <div class="shard s1" aria-hidden="true"></div>
+  <div class="shard s2" aria-hidden="true"></div>
+  <div class="shard s3" aria-hidden="true"></div>
+  <div class="beams" aria-hidden="true"><span class="beam b1"></span><span class="beam b3"></span><span class="beam b2"></span></div>
+
+  <!-- sombrero de paja con borla navideña -->
+  <img class="hat-float" src="img/sombrero-paja.webp" width="618" height="344" alt="" aria-hidden="true">
+
+  <!-- bola disco -->
+  <div class="hang disco" aria-hidden="true"><img src="img/disco-plata.webp" width="900" height="900" alt=""></div>
+  <img class="deco" src="img/estrella-naranja.webp" alt="" aria-hidden="true" style="--s:clamp(34px,5vw,64px); --r:-14deg; left:4%; bottom:12%;">
+  <img class="deco" src="img/estrella-roja.webp" alt="" aria-hidden="true" style="--s:clamp(26px,3.5vw,46px); --r:12deg; left:44%; top:7%;">
+
+  <div class="wrap hero-layout">
+    <div class="hero-inner">
+      <p class="eyebrow art shine" style="--m:url(img/life-of-a-showgirl-hd.webp)"><img src="img/life-of-a-showgirl-hd.webp" width="900" height="691" alt="The Life of a Showgirl"></p>
+      <h1 class="marquee-name art" aria-label="Majo">
+        <span class="shine" style="--m:url(img/majo-m.webp)"><img src="img/majo-m.webp" width="390" height="772" alt=""></span><span class="shine" style="--m:url(img/majo-a.webp)"><img src="img/majo-a.webp" width="276" height="772" alt=""></span><span class="shine" style="--m:url(img/majo-j.webp)"><img src="img/majo-j.webp" width="248" height="785" alt=""></span><span class="shine" style="--m:url(img/majo-o.webp)"><img src="img/majo-o.webp" width="316" height="790" alt=""></span>
+      </h1>
+      <div class="age-row">
+        <span class="age art shine" style="--m:url(img/numero-22.webp)"><img src="img/numero-22.webp" width="1333" height="872" alt="22"></span>
+        <div class="age-copy">
+          <b>La protagonista de la historia de hoy</b>
+          <small>Gira de cumpleaños · Edición navideña</small>
+        </div>
+      </div>
+      <a class="cta" href="#entrada">Ver la función ✦</a>
+    </div>
+    <div class="hero-photo art" aria-hidden="true"><img src="img/showgirl.webp" width="571" height="1038" alt=""></div>
+  </div>
+</header>
+
+<main>
+<!-- ============ ENTRADA ============ -->
+<section class="band ticket-band" id="entrada">
+  <div class="wrap ticket-grid">
+    <article class="ticket foil" aria-label="Entrada VIP para la función de Majo">
+      <div class="ticket-main">
+        <div class="ticket-top">
+          <span class="kicker">Entrada VIP</span>
+          <span class="kicker">Nº 000022</span>
+        </div>
+        <h2 class="ticket-title">La Era Showgirl de Majo</h2>
+        <div class="fields">
+          <div class="field"><small>Función</small><b>Cumple 22</b></div>
+          <div class="field"><small>Puerta</small><b>Grand Line</b></div>
+          <div class="field"><small>Fila</small><b>22</b></div>
+          <div class="field"><small>Asiento</small><b>2004</b></div>
+          <div class="field"><small>Dress code</small><b>Glitter</b></div>
+          <div class="field"><small>Admite</small><b>1 reina</b></div>
+        </div>
+        <div class="barcode" aria-hidden="true"></div>
+      </div>
+      <div class="stub"><span>ADMIT ONE</span></div>
+    </article>
+
+    <div class="ticket-copy">
+      <span class="kicker">Se abre el telón</span>
+      <p class="quote">Aférrate a los recuerdos. <em>Ellos se aferrarán a ti.</em></p>
+      <p>Esta noche no hay telonero: la estrella principal eres tú. Veintidós años de escenas, eras y outfits, y la temporada más brillante apenas empieza. Siéntate en primera fila de tu propia vida, que el show es tuyo.</p>
+      <div class="soundtrack">
+        <span class="kicker">♫ Banda sonora de la noche</span>
+        <iframe title="Spotify: 22 (Taylor's Version)" src="https://open.spotify.com/embed/track/3yII7UwgLF6K5zW3xad3MP?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SETLIST ============ -->
+<section class="band stage" id="setlist">
+  <div class="wrap setlist-wrap">
+    <div class="head">
+      <span class="kicker">Setlist oficial</span>
+      <h2 class="h2 glitter">12 canciones, 12 deseos</h2>
+      <p class="lede">Cada canción del álbum trae un deseo para tus 22. Pegado con cinta al piso del escenario, como debe ser.</p>
+      <img class="walk-star art" src="img/estrella-majo22.webp" width="722" height="681" alt="Estrella del paseo de la fama: Majo 22">
+    </div>
+
+    <div class="setlist">
+      <h3>Majo · Showgirl Tour</h3>
+      <p class="sub">Noche del cumple · Fila 22</p>
+      <ol>
+        <li><span class="n">01</span><span class="t">The Fate of Ophelia</span><span class="w">Que este año el destino juegue a tu favor, siempre.</span></li>
+        <li><span class="n">02</span><span class="t">Elizabeth Taylor</span><span class="w">Brillo de estrella de cine, aunque sea martes.</span></li>
+        <li><span class="n">03</span><span class="t">Opalite</span><span class="w">Que hasta los días grises te salgan de colores.</span></li>
+        <li><span class="n">04</span><span class="t">Father Figure</span><span class="w">Gente que te cuide como tú cuidas a los tuyos.</span></li>
+        <li><span class="n">05</span><span class="t">Eldest Daughter</span><span class="w">Permiso para descansar. Ya hiciste suficiente.</span></li>
+        <li><span class="n">06</span><span class="t">Ruin the Friendship</span><span class="w">Amistades que no se arruinen nunca. Como la nuestra.</span></li>
+        <li><span class="n">07</span><span class="t">Actually Romantic</span><span class="w">Que te quieran a lo grande y sin ironía.</span></li>
+        <li><span class="n">08</span><span class="t">Wi$h Li$t</span><span class="w">Todo lo de tu lista, y lo que no te atreviste a escribir.</span></li>
+        <li><span class="n">09</span><span class="t">Wood</span><span class="w">Toco madera: que nada malo se te acerque.</span></li>
+        <li><span class="n">10</span><span class="t">CANCELLED!</span><span class="w">Cancelados el estrés, los lunes y la gente que no suma.</span></li>
+        <li><span class="n">11</span><span class="t">Honey</span><span class="w">Un año dulce como la miel.</span></li>
+        <li class="last"><span class="n">12</span><span class="t">The Life of a Showgirl</span><span class="w">Tú en el escenario. Nosotras gritando en primera fila.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GRAND LINE ============ -->
+<section class="band grandline" id="grand-line">
+  <div class="waves" aria-hidden="true"></div>
+  <img class="sunny" src="img/thousand-sunny.webp" width="681" height="683" alt="" aria-hidden="true">
+  <div class="wrap gl-grid">
+    <div class="gl-copy">
+      <div class="head" style="margin-bottom:0">
+        <span class="kicker">Rumbo al Grand Line</span>
+        <h2 class="h2 glitter">Una nueva aventura comienza</h2>
+        <p class="lede">Si no te arriesgas, no puedes crear un futuro. Así que iza la bandera, capitana: los 22 se navegan a toda vela.</p>
+      </div>
+      <div class="bulletins">
+        <div class="bulletin">
+          <img class="b-icon swords" src="img/espadas-zoro.webp" width="316" height="800" alt="" aria-hidden="true">
+          <div>
+            <b>Aviso urgente de la tripulación</b>
+            <p>Zoro salió hacia tu fiesta hace tres días con sus tres espadas. Sigue perdido, pero jura que llega para el pastel.</p>
+          </div>
+        </div>
+        <div class="bulletin">
+          <img class="b-icon" src="img/sombrero-paja.webp" width="618" height="344" alt="" aria-hidden="true">
+          <div>
+            <b>Reporte del capitán</b>
+            <p>Luffy ya se comió la mitad del banquete. Escondimos tu rebanada en el Sunny, detrás de los regalos.</p>
+          </div>
+        </div>
+        <div class="bulletin">
+          <img class="b-icon" src="img/cofre.webp" width="759" height="775" alt="" aria-hidden="true">
+          <div>
+            <b>Mapa del tesoro</b>
+            <p>El One Piece sí existe y este año es tuyo: un cofre lleno de momentos que brillan más que cualquier oro.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <article class="poster foil" aria-label="Cartel de recompensa de Majo">
+      <span class="pin" aria-hidden="true"></span>
+      <div class="wanted">WANTED</div>
+      <div class="photo">
+        <span class="pic"><img src="img/majo-foto.webp" width="671" height="572" alt="Foto de Majo"></span>
+        <img class="party-hat" src="img/majo-gorro.webp" width="228" height="381" alt="" aria-hidden="true">
+      </div>
+      <div class="alive">VIVA Y BRILLANDO</div>
+      <div class="pname">MAJO</div>
+      <div class="bounty"><span class="berry">฿</span><span>2.200.000.000</span><span>-</span></div>
+      <div class="marine">Por robarse todos los corazones del East Blue</div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ NAVIDAD ============ -->
+<section class="band xmas" id="navidad">
+  <div class="lights" aria-hidden="true"><img src="img/luces.webp" width="1600" height="216" alt=""></div>
+  <img class="deco" src="img/estrella-coral.webp" alt="" aria-hidden="true" style="--s:clamp(30px,4vw,54px); --r:16deg; right:5%; top:46%;">
+  <img class="deco" src="img/estrella-naranja.webp" alt="" aria-hidden="true" style="--s:clamp(24px,3vw,40px); --r:-8deg; left:4%; top:60%;">
+  <img class="deco" src="img/caramelo-espiral.webp" alt="" aria-hidden="true" style="--s:clamp(22px,3vw,42px); --r:-20deg; left:6%; top:34%;">
+  <img class="deco" src="img/caramelo-menta.webp" alt="" aria-hidden="true" style="--s:clamp(30px,4vw,58px); --r:10deg; right:7%; top:78%;">
+  <div class="wrap">
+    <div class="head xmas-head">
+      <span class="kicker">Edición navideña</span>
+      <h2 class="h2 glitter">Tu cumpleaños se siente como la mañana de Navidad</h2>
+      <p class="lede">Veintidós velas encendidas. Toca cada flama para apagarla o sóplalas todas de una vez, y no olvides pedir tu deseo.</p>
+    </div>
+
+    <div class="cake-area">
+      <div class="cake-stage">
+        <img class="tree art" src="img/arbol.webp" width="600" height="947" alt="" aria-hidden="true">
+        <div class="cake">
+          <div class="candles" id="candles"></div>
+          <div class="tier top"></div>
+          <div class="tier bottom"></div>
+          <div class="plate"></div>
+        </div>
+        <div class="hang bauble" aria-hidden="true"><img src="img/esfera-espiral.webp" width="837" height="1017" alt=""></div>
+      </div>
+      <p class="count" id="count" aria-live="polite">Quedan 22 velas encendidas</p>
+      <div class="cake-controls">
+        <button class="cta" id="blow" type="button">Soplar las velas</button>
+        <button class="cta ghost" id="relight" type="button">Volver a encender</button>
+      </div>
+    </div>
+
+    <div class="xmas-quotes">
+      <div class="ornament">
+        <img src="img/esfera-durazno.webp" width="738" height="872" alt="" aria-hidden="true">
+        <b>Tu Wi$h Li$t</b>
+        <p>Salud, viajes, conciertos con buena vista y cero filas en la preventa.</p>
+      </div>
+      <div class="ornament">
+        <img src="img/esfera-rosa.webp" width="716" height="872" alt="" aria-hidden="true">
+        <b>Regalo bajo el árbol</b>
+        <p>Un año entero de risas, abrazos largos y planes que sí se cumplen.</p>
+      </div>
+      <div class="ornament">
+        <img src="img/estrella-naranja.webp" width="627" height="587" alt="" aria-hidden="true">
+        <b>Estrella en la punta</b>
+        <p>Tú. Siempre fuiste tú la que ilumina todo el árbol.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PULSERA ============ -->
+<section class="bracelet-band">
+  <div class="wrap">
+    <span class="kicker">Pulsera de la amistad</span>
+    <div class="bracelet" id="bracelet" aria-label="Pulsera de cuentas que dice MAJO 22 ERA SHOWGIRL"></div>
+  </div>
+</section>
+
+<!-- ============ ENCORE ============ -->
+<section class="encore" id="encore">
+  <div class="hang disco-l" aria-hidden="true"><img src="img/disco-rosa.webp" width="873" height="900" alt=""></div>
+  <img class="deco" src="img/estrella-roja.webp" alt="" aria-hidden="true" style="--s:clamp(34px,5vw,70px); --r:10deg; right:6%; top:14%;">
+  <img class="deco" src="img/estrella-coral.webp" alt="" aria-hidden="true" style="--s:clamp(26px,3.5vw,48px); --r:-18deg; right:14%; bottom:10%;">
+  <div class="wrap inner">
+    <span class="kicker">Y para cerrar</span>
+    <h2 class="encore-word art shine" style="--m:url(img/the-encore.webp)"><img src="img/the-encore.webp" width="1600" height="849" alt="The Encore"></h2>
+    <div class="letter">
+      <p>Feliz cumpleaños, Majo. Brillas como la ciudad en una noche de fuegos artificiales, y lo haces sin esfuerzo.</p>
+      <p>Que tus 22 sean tu era favorita: más aventura que el Grand Line, más brillo que un vestuario de gira y más magia que la mañana de Navidad.</p>
+    </div>
+    <p class="sign">Con amor, tu público de primera fila</p>
+    <button class="cta" id="encore-btn" type="button">Pedir otro encore ✦</button>
+  </div>
+</section>
+</main>
+
+<footer>Hecho con amor y demasiado glitter para Majo · 22</footer>
+
+<script>
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+
+  /* ---------- texturas de glitter generadas ---------- */
+  function glitter(base, palette, size = 150) {
+    const c = document.createElement('canvas');
+    c.width = c.height = size;
+    const g = c.getContext('2d');
+    const grad = g.createLinearGradient(0, 0, size, size);
+    base.forEach((col, i) => grad.addColorStop(i / (base.length - 1), col));
+    g.fillStyle = grad; g.fillRect(0, 0, size, size);
+    for (let i = 0; i < size * size / 5; i++) {
+      const x = Math.random() * size, y = Math.random() * size;
+      const r = Math.random() * 1.5 + 0.35;
+      g.globalAlpha = Math.random() * 0.8 + 0.2;
+      g.fillStyle = palette[(Math.random() * palette.length) | 0];
+      g.beginPath();
+      if (Math.random() < 0.55) { g.rect(x, y, r * 1.6, r * 1.6); } else { g.arc(x, y, r, 0, Math.PI * 2); }
+      g.fill();
+    }
+    for (let i = 0; i < size / 2.5; i++) { // destellos blancos
+      g.globalAlpha = Math.random() * 0.6 + 0.4;
+      g.fillStyle = '#ffffff';
+      g.fillRect(Math.random() * size, Math.random() * size, 1.4, 1.4);
+    }
+    g.globalAlpha = 1;
+    return `url(${c.toDataURL('image/png')})`;
+  }
+  try {
+    root.style.setProperty('--glit-silver', glitter(['#6f6f7c', '#d7d7e2', '#8d8d99'], ['#ffffff', '#e6e6ee', '#b9b9c6', '#5c5c6a']));
+  } catch (e) { /* se quedan los degradados de respaldo */ }
+
+  /* ---------- pulsera ---------- */
+  const bracelet = document.getElementById('bracelet');
+  if (bracelet) {
+    const seq = ['sp g', 'M', 'A', 'J', 'O', 'sp p', '★', '2', '2', '★', 'sp e', 'E', 'R', 'A', 'sp g', 'S', 'H', 'O', 'W', 'G', 'I', 'R', 'L', 'sp p'];
+    bracelet.innerHTML = seq.map(s => {
+      if (s.startsWith('sp')) return `<span class="bead ${s}" aria-hidden="true"></span>`;
+      if (s === '★') return `<span class="bead star" aria-hidden="true">✦</span>`;
+      return `<span class="bead" aria-hidden="true">${s}</span>`;
+    }).join('');
+  }
+
+  /* ---------- canvas: brillos, nieve, lentejuelas y confeti ---------- */
+  const cv = document.getElementById('sparkles');
+  const ctx = cv.getContext('2d');
+  let W = 0, H = 0, dpr = 1;
+  let stars = [], snow = [], sequins = [], confetti = [], trail = [];
+  const GOLD = ['#fff2c8', '#e4b65e', '#f7d98c'];
+  const CONF = ['#e4b65e', '#fff2c8', '#e5307f', '#ff6fae', '#fbeef3', '#2aa769'];
+  const SEQ = ['#e4b65e', '#f7d98c', '#e5307f', '#ff6fae', '#fbeef3'];
+  const TRAIL = ['#fff2c8', '#e4b65e', '#ff6fae', '#ffffff'];
+  const pick = arr => arr[(Math.random() * arr.length) | 0];
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const area = W * H;
+    stars = Array.from({ length: Math.round(area / 16000) }, () => ({
+      x: Math.random() * W, y: Math.random() * H, s: Math.random() * 3 + 1.2,
+      p: Math.random() * Math.PI * 2, v: Math.random() * 0.03 + 0.012, c: GOLD[(Math.random() * 3) | 0]
+    }));
+    snow = Array.from({ length: Math.round(area / 22000) }, () => ({
+      x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.8 + 0.6,
+      vy: Math.random() * 0.5 + 0.25, sw: Math.random() * Math.PI * 2, a: Math.random() * 0.5 + 0.35
+    }));
+    sequins = Array.from({ length: Math.round(area / 30000) }, () => ({
+      x: Math.random() * W, y: Math.random() * H, r: Math.random() * 3 + 2.5,
+      vy: Math.random() * 0.6 + 0.35, flip: Math.random() * Math.PI * 2, vf: Math.random() * 0.07 + 0.03,
+      sw: Math.random() * Math.PI * 2, tilt: Math.random() * Math.PI, c: pick(SEQ)
+    }));
+    if (reduce) drawFrame(0);
+  }
+
+  function heart(x, y, s, a, c) {
+    ctx.globalAlpha = a; ctx.fillStyle = c;
+    ctx.beginPath();
+    ctx.moveTo(x, y + s * 0.9);
+    ctx.bezierCurveTo(x - s * 1.25, y, x - s * 0.6, y - s * 0.95, x, y - s * 0.3);
+    ctx.bezierCurveTo(x + s * 0.6, y - s * 0.95, x + s * 1.25, y, x, y + s * 0.9);
+    ctx.fill();
+  }
+
+  function sequin(q) { // lentejuela que gira y destella cuando queda de frente
+    const w = Math.abs(Math.cos(q.flip));
+    ctx.globalAlpha = 0.85;
+    ctx.fillStyle = w > 0.93 ? '#ffffff' : q.c;
+    ctx.beginPath();
+    ctx.ellipse(q.x, q.y, q.r * Math.max(w, 0.15), q.r, q.tilt, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function sparkle(x, y, s, a, c) {
+    ctx.globalAlpha = a; ctx.fillStyle = c;
+    ctx.beginPath();
+    ctx.moveTo(x, y - s * 2);
+    ctx.quadraticCurveTo(x, y, x + s * 2, y);
+    ctx.quadraticCurveTo(x, y, x, y + s * 2);
+    ctx.quadraticCurveTo(x, y, x - s * 2, y);
+    ctx.quadraticCurveTo(x, y, x, y - s * 2);
+    ctx.fill();
+  }
+
+  function drawFrame() {
+    ctx.clearRect(0, 0, W, H);
+    for (const st of stars) {
+      st.p += st.v;
+      const a = (Math.sin(st.p) + 1) / 2;
+      if (a > 0.15) sparkle(st.x, st.y, st.s * (0.5 + a * 0.6), a * 0.9, st.c);
+    }
+    ctx.fillStyle = '#ffffff';
+    for (const f of snow) {
+      if (!reduce) {
+        f.y += f.vy; f.sw += 0.01; f.x += Math.sin(f.sw) * 0.3;
+        if (f.y > H + 5) { f.y = -5; f.x = Math.random() * W; }
+      }
+      ctx.globalAlpha = f.a;
+      ctx.beginPath(); ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2); ctx.fill();
+    }
+    for (const q of sequins) {
+      if (!reduce) {
+        q.y += q.vy; q.flip += q.vf; q.sw += 0.012; q.x += Math.sin(q.sw) * 0.4;
+        if (q.y > H + 8) { q.y = -8; q.x = Math.random() * W; }
+      }
+      sequin(q);
+    }
+    for (let i = trail.length - 1; i >= 0; i--) {
+      const t = trail[i];
+      t.x += t.vx; t.y += t.vy; t.vy += 0.03; t.life -= 1;
+      if (t.life <= 0) { trail.splice(i, 1); continue; }
+      const k = t.life / t.max;
+      sparkle(t.x, t.y, t.s * (0.4 + k * 0.6), k, t.c);
+    }
+    for (let i = confetti.length - 1; i >= 0; i--) {
+      const p = confetti[i];
+      p.vy += 0.12; p.vx *= 0.99; p.vy *= 0.99;
+      p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.life -= 1;
+      if (p.life <= 0 || p.y > H + 20) { confetti.splice(i, 1); continue; }
+      ctx.globalAlpha = Math.min(1, p.life / 40);
+      if (p.shape === 'star') { sparkle(p.x, p.y, p.size / 2, ctx.globalAlpha, p.c); continue; }
+      if (p.shape === 'heart') { heart(p.x, p.y, p.size / 1.6, ctx.globalAlpha, p.c); continue; }
+      if (p.shape === 'sequin') { p.flip += 0.15; sequin({ x: p.x, y: p.y, r: p.size / 2.2, flip: p.flip, tilt: p.rot, c: p.c }); continue; }
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      ctx.fillStyle = p.c; ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+      ctx.restore();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function burst(x, y, n = 140) {
+    if (reduce) return;
+    for (let i = 0; i < n; i++) {
+      const ang = Math.random() * Math.PI * 2, sp = Math.random() * 9 + 3;
+      const r = Math.random();
+      confetti.push({
+        x, y, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 4,
+        rot: Math.random() * 6, vr: (Math.random() - 0.5) * 0.4, flip: Math.random() * 6,
+        size: Math.random() * 8 + 5, c: pick(CONF),
+        shape: r < 0.25 ? 'star' : r < 0.4 ? 'heart' : r < 0.6 ? 'sequin' : 'rect',
+        life: 140 + Math.random() * 80
+      });
+    }
+  }
+
+  // brillitos suaves (estela del cursor, títulos, toques)
+  function sprinkle(x, y, n = 3, spread = 6) {
+    if (reduce) return;
+    for (let i = 0; i < n; i++) {
+      const max = 35 + Math.random() * 35;
+      trail.push({
+        x: x + (Math.random() - 0.5) * spread, y: y + (Math.random() - 0.5) * spread,
+        vx: (Math.random() - 0.5) * 1.2, vy: -Math.random() * 1.2,
+        s: Math.random() * 2.4 + 1.4, c: pick(TRAIL), life: max, max
+      });
+    }
+    if (trail.length > 600) trail.splice(0, trail.length - 600);
+  }
+  function sprinkleEl(el, n = 24) {
+    const r = el.getBoundingClientRect();
+    for (let i = 0; i < n; i++) sprinkle(r.left + Math.random() * r.width, r.top + Math.random() * r.height, 1, 4);
+  }
+
+  let running = false;
+  function loop() {
+    if (document.hidden) { running = false; return; }
+    drawFrame();
+    requestAnimationFrame(loop);
+  }
+  function start() { if (!running && !reduce) { running = true; requestAnimationFrame(loop); } }
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) start(); });
+  window.addEventListener('resize', resize);
+  resize(); start();
+  // confeti justo cuando se abre el telón
+  setTimeout(() => { burst(W * 0.08, H * 0.45, 110); burst(W * 0.92, H * 0.45, 110); }, 1500);
+  setTimeout(() => burst(W / 2, H * 0.3, 160), 1900);
+
+  function burstFrom(el) {
+    const r = el.getBoundingClientRect();
+    burst(r.left + r.width / 2, r.top + r.height / 2);
+  }
+
+  /* ---------- efectos interactivos ---------- */
+  if (!reduce) {
+    // estela de brillos que sigue al cursor o al dedo
+    let lx = -99, ly = -99;
+    const follow = (x, y) => {
+      if (Math.hypot(x - lx, y - ly) < 9) return;
+      lx = x; ly = y; sprinkle(x, y, 2, 8);
+    };
+    window.addEventListener('pointermove', e => follow(e.clientX, e.clientY), { passive: true });
+    window.addEventListener('touchmove', e => { const t = e.touches[0]; if (t) follow(t.clientX, t.clientY); }, { passive: true });
+
+    // un toque en cualquier parte suelta brillitos
+    document.addEventListener('click', e => {
+      if (e.target.closest('button, a')) return;
+      sprinkle(e.clientX, e.clientY, 26, 30);
+    });
+
+    // los textos con glitter sueltan brillos al pasar por encima
+    document.querySelectorAll('.glitter, .glitter-pink, .art').forEach(el =>
+      el.addEventListener('pointerenter', () => sprinkleEl(el, 18)));
+
+    // las letras de MAJO y THE ENCORE explotan en confeti al tocarlas
+    document.querySelectorAll('.marquee-name span, .encore-word').forEach(el =>
+      el.addEventListener('click', () => burstFrom(el)));
+
+    // brillos la primera vez que aparece cada título
+    if ('IntersectionObserver' in window) {
+      const seen = new IntersectionObserver(entries => entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        seen.unobserve(en.target);
+        if (en.target.classList.contains('encore-word')) {
+          burstFrom(en.target);
+          setTimeout(() => { burst(W * 0.1, H * 0.6, 90); burst(W * 0.9, H * 0.6, 90); }, 300);
+        } else {
+          sprinkleEl(en.target, 40);
+        }
+      }), { threshold: 0.6 });
+      document.querySelectorAll('.h2, .encore-word').forEach(el => seen.observe(el));
+    }
+
+    // entrada y cartel: inclinación 3D con reflejo holográfico
+    if (window.matchMedia('(pointer: fine)').matches) {
+      document.querySelectorAll('.foil').forEach(el => {
+        el.addEventListener('pointermove', e => {
+          const r = el.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+          el.classList.add('tilting');
+          el.style.setProperty('--mx', `${px * 100}%`);
+          el.style.setProperty('--my', `${py * 100}%`);
+          el.style.transform = `perspective(900px) rotateY(${(px - 0.5) * 16}deg) rotateX(${(0.5 - py) * 12}deg) scale(1.03)`;
+        });
+        el.addEventListener('pointerleave', () => {
+          el.classList.remove('tilting');
+          el.style.transform = '';
+          el.style.removeProperty('--mx'); el.style.removeProperty('--my');
+        });
+        el.addEventListener('pointerenter', () => sprinkleEl(el, 20));
+      });
+    }
+  }
+
+  /* ---------- pastel con 22 velas ---------- */
+  const candlesEl = document.getElementById('candles');
+  const countEl = document.getElementById('count');
+  const TOTAL = 22;
+  let lit = TOTAL;
+  candlesEl.innerHTML = Array.from({ length: TOTAL }, (_, i) =>
+    `<span class="candle"><button class="flame" type="button" aria-label="Apagar vela ${i + 1}"></button></span>`).join('');
+
+  function update(fromEl) {
+    if (lit === 0) {
+      countEl.textContent = 'Deseo pedido. Ahora sí, ¡a abrir los regalos!';
+      burstFrom(fromEl || candlesEl);
+      setTimeout(() => burst(W * 0.2, H * 0.3, 90), 250);
+      setTimeout(() => burst(W * 0.8, H * 0.3, 90), 450);
+    } else {
+      countEl.textContent = lit === 1 ? 'Queda 1 vela encendida' : `Quedan ${lit} velas encendidas`;
+    }
+  }
+  candlesEl.addEventListener('click', e => {
+    const f = e.target.closest('.flame');
+    if (!f || f.classList.contains('out')) return;
+    f.classList.add('out'); f.setAttribute('aria-label', 'Vela apagada');
+    lit--; update(f);
+  });
+  document.getElementById('blow').addEventListener('click', () => {
+    const flames = [...candlesEl.querySelectorAll('.flame:not(.out)')];
+    if (!flames.length) return;
+    flames.forEach((f, i) => setTimeout(() => {
+      f.classList.add('out'); f.setAttribute('aria-label', 'Vela apagada');
+      lit--; if (lit === 0) update(candlesEl); else countEl.textContent = `Quedan ${lit} velas encendidas`;
+    }, reduce ? 0 : i * 45));
+  });
+  document.getElementById('relight').addEventListener('click', () => {
+    candlesEl.querySelectorAll('.flame').forEach((f, i) => { f.classList.remove('out'); f.setAttribute('aria-label', `Apagar vela ${i + 1}`); });
+    lit = TOTAL; update();
+  });
+
+  /* ---------- encore ---------- */
+  document.getElementById('encore-btn').addEventListener('click', e => {
+    burstFrom(e.currentTarget);
+    setTimeout(() => burst(W * 0.15, H * 0.5, 100), 200);
+    setTimeout(() => burst(W * 0.85, H * 0.5, 100), 400);
+  });
+})();
+</script>
+</body>
+</html>
